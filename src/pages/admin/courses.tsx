@@ -43,7 +43,7 @@ const AdminCoursesPage: React.FC = () => {
 
   // Variant modal state
   const [variants, setVariants] = useState<CourseVariant[]>([
-    { id: "tmp-1", title: "", course_id: "", price: undefined, capacity: undefined, description: "", start_date: "" },
+    { id: "tmp-1", title: "", course_id: "", price: undefined, capacity: undefined, description: "", start_date: "", is_featured: false },
   ]);
 
   const openCourseModal = () => {
@@ -80,6 +80,7 @@ const AdminCoursesPage: React.FC = () => {
         capacity: undefined,
         description: "",
         start_date: "",
+        is_featured: false
       },
     ]);
     setIsVariantModalOpen(true);
@@ -104,6 +105,7 @@ const AdminCoursesPage: React.FC = () => {
         capacity: undefined,
         description: "",
         start_date: "",
+        is_featured: false
       },
     ]);
   };
