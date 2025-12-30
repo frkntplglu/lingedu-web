@@ -18,6 +18,9 @@ const IeltsBuy = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="bg-card-light dark:bg-card-dark rounded-[2rem] p-8 border border-gray-100 dark:border-gray-700 shadow-lg hover:shadow-2xl transition duration-300 flex flex-col relative">
+          <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-4 py-2 rounded-bl-2xl rounded-tr-2xl">
+              Başlangıç: 26 Ocak 2026
+            </div>
             <div className="mb-6">
               <span className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                 Popüler
@@ -82,9 +85,7 @@ const IeltsBuy = () => {
             </button>
           </div>
           <div className="bg-primary text-white rounded-[2rem] p-8 shadow-xl hover:shadow-2xl transition duration-300 flex flex-col relative transform md:-translate-y-4">
-            <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-4 py-2 rounded-bl-2xl rounded-tr-2xl">
-              EN HIZLI SONUÇ
-            </div>
+            
             <div className="mb-6">
               <h3 className="text-2xl font-bold mt-4">Özel Ders (1:1)</h3>
               <p className="text-purple-100 mt-2">

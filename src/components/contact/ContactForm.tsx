@@ -1,13 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { contactFormService } from "@/services";
 
 const ContactForm = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-
   const validationSchema = Yup.object({
     fullname: Yup.string()
       .required("Adınız soyadınız zorunludur")
@@ -36,10 +32,10 @@ const ContactForm = () => {
     terms_accepted: false,
   };
 
-  const handleSubmit = async (values: typeof initialValues) => {
-    setIsSubmitting(true);
-    setSubmitError(null);
-
+  const handleSubmit = async (
+    values: typeof initialValues,
+    { setStatus, setSubmitting }: { setStatus: (status: string | null) => void; setSubmitting: (isSubmitting: boolean) => void }
+  ) => {
     try {
       await contactFormService.post({
         fullname: values.fullname,
@@ -47,14 +43,23 @@ const ContactForm = () => {
         subject: values.subject,
         message: values.message,
       });
-      setIsSubmitted(true);
+      setStatus("submitted");
     } catch (error: any) {
-      console.error("Contact form submission error:", error);
-      setSubmitError(
-        error?.message || "Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
-      );
+      // Log detailed error for debugging
+      console.error("Contact form submission error:", {
+        error,
+        message: error?.message,
+        stack: error?.stack,
+        response: error?.response,
+        values: {
+          fullname: values.fullname,
+          email: values.email,
+          subject: values.subject,
+        },
+      });
+      setStatus("error");
     } finally {
-      setIsSubmitting(false);
+      setSubmitting(false);
     }
   };
 
@@ -155,39 +160,44 @@ const ContactForm = () => {
               </p>
             </div>
 
-            {isSubmitted ? (
-              <div className="text-center py-10">
-                <span className="material-icons-outlined text-green-500 text-6xl mb-4">
-                  check_circle
-                </span>
-                <h3 className="text-2xl font-bold text-text-main-light dark:text-text-main-dark mb-3">
-                  Mesajınız Gönderildi!
-                </h3>
-                <p className="text-text-muted-light dark:text-text-muted-dark mb-6">
-                  Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
-                </p>
-                <button
-                  onClick={() => {
-                    setIsSubmitted(false);
-                    setSubmitError(null);
-                  }}
-                  className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition"
-                >
-                  Yeni Mesaj Gönder
-                </button>
-              </div>
-            ) : (
-              <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-              >
-                {({ errors, touched, isSubmitting: formikSubmitting }) => (
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+              initialStatus={null}
+            >
+              {({ errors, touched, isSubmitting, status, setStatus, resetForm }) => {
+                if (status === "submitted") {
+                  return (
+                    <div className="text-center py-10">
+                      <span className="material-icons-outlined text-green-500 text-6xl mb-4">
+                        check_circle
+                      </span>
+                      <h3 className="text-2xl font-bold text-text-main-light dark:text-text-main-dark mb-3">
+                        Mesajınız Gönderildi!
+                      </h3>
+                      <p className="text-text-muted-light dark:text-text-muted-dark mb-6">
+                        Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.
+                      </p>
+                      <button
+                        onClick={() => {
+                          setStatus(null);
+                          resetForm();
+                        }}
+                        className="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full font-semibold transition"
+                      >
+                        Yeni Mesaj Gönder
+                      </button>
+                    </div>
+                  );
+                }
+
+                return (
                   <Form className="space-y-6">
-                    {submitError && (
+                    {status === "error" && (
                       <div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-800 dark:text-red-200 px-4 py-3 rounded-xl relative" role="alert">
                         <strong className="font-bold">Hata!</strong>
-                        <span className="block sm:inline"> {submitError}</span>
+                        <span className="block sm:inline"> Form gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.</span>
                       </div>
                     )}
 
@@ -346,10 +356,10 @@ const ContactForm = () => {
 
                     <button
                       type="submit"
-                      disabled={isSubmitting || formikSubmitting}
+                      disabled={isSubmitting}
                       className="w-full bg-primary hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-primary/30  dark:shadow-none flex items-center justify-center gap-2 group"
                     >
-                      {isSubmitting || formikSubmitting ? (
+                      {isSubmitting ? (
                         <>
                           <span className="material-icons-outlined animate-spin">
                             sync
@@ -366,9 +376,9 @@ const ContactForm = () => {
                       )}
                     </button>
                   </Form>
-                )}
-              </Formik>
-            )}
+                );
+              }}
+            </Formik>
           </div>
         </div>
       </div>
