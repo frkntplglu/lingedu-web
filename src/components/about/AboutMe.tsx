@@ -32,7 +32,7 @@ const AboutMe = () => {
             Özel Ders</strong> programlarını yürütmekteyim.
           </p>
           <p className="pb-4">
-            <p className="text-lg mb-4 font-bold">Öğretmenlik Felsefem</p>
+            <span className="text-lg mb-4 font-bold block">Öğretmenlik Felsefem</span>
             <strong>Uzmanlık:</strong> Akademik geçmişim ve süregelen doktora
             çalışmalarım sayesinde, özellikle yetişkinlere İngilizce öğretme
             alanında derinleşmiş bir bilgi birikimine sahibim.

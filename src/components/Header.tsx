@@ -36,7 +36,7 @@ const Header = () => {
                         <Link href="/about" className={getLinkClassName('/about')}>
                             Hakkımızda
                         </Link>
-                        <Link href="/speaking-club" className={getLinkClassName('/speaking-club')}>
+                        <Link href="/speaking-club-aylik" className={getLinkClassName('/speaking-club-aylik')}>
                             Speaking Club
                         </Link>
                         <Link href="/ielts" className={getLinkClassName('/ielts')}>

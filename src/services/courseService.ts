@@ -18,6 +18,8 @@ export interface CourseVariant {
   capacity?: number;
   description?: string;
   start_date?: string;
+  mini_desc?: string;
+  is_featured: boolean;
 }
 
 export interface CourseWithVariants extends Course {
@@ -62,7 +64,9 @@ const courseService = {
           price,
           capacity,
           description,
-          start_date
+          start_date,
+          mini_desc,
+          is_featured
         )
       `)
       .eq('slug', slug)
