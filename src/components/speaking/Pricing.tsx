@@ -9,9 +9,7 @@ interface PricingProps {
 const Pricing: React.FC<PricingProps> = ({ course, isLoading }) => {
   const mainVariant = course?.course_variants?.[0];
   const formattedPrice =
-    typeof mainVariant?.price === "number"
-      ? `₺${mainVariant.price.toLocaleString("tr-TR")}`
-      : "₺1.250";
+     mainVariant ?  `₺${mainVariant.price?.toLocaleString("tr-TR")}` : '-';
 
   return (
     <section className="py-24 bg-surface-light dark:bg-surface-dark" id="pricing">
@@ -21,7 +19,7 @@ const Pricing: React.FC<PricingProps> = ({ course, isLoading }) => {
             Yatırımın Kendine
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
-            {course?.title || "Katılım Planı ve Program"}
+            { "Katılım Planı ve Program"}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {course?.mini_desc ||

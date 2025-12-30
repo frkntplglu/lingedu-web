@@ -25,16 +25,11 @@ const IeltsBuy: React.FC<IeltsBuyProps> = ({ course, isLoading }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">
-            {course?.title || (
-              <>
-                Sizin İçin En Uygun{" "}
+            Sizin İçin En Uygun{" "}
                 <span className="text-primary">Planı Seçin</span>
-              </>
-            )}
           </h2>
           <p className="text-text-muted-light dark:text-text-muted-dark text-lg">
-            {course?.mini_desc ||
-              "Öğrenme stilinize ve hedeflerinize uygun eğitim modelini belirleyin."}
+              "Öğrenme stilinize ve hedeflerinize uygun eğitim modelini belirleyin."
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
