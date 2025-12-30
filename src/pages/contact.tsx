@@ -6,10 +6,10 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>İletişim - IELTSMaster | Bize Ulaşın</title>
+        <title>İletişim - LingEdu Dil | Bize Ulaşın</title>
         <meta
           name="description"
-          content="IELTSMaster ile iletişime geçin. Sorularınız için formu doldurun veya telefon, e-posta ve sosyal medya hesaplarımızdan bize ulaşın."
+          content="LingEdu Dil ile iletişime geçin. Sorularınız için formu doldurun veya telefon, e-posta ve sosyal medya hesaplarımızdan bize ulaşın."
         />
       </Head>
       <ContactHeader />

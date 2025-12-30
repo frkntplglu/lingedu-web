@@ -9,7 +9,7 @@ export default function IeltsDisable() {
   return (
     <>
       <Head>
-        <title>IELTS Hazırlık - Yer Dolu | IELTSMaster</title>
+        <title>IELTS Hazırlık - Yer Dolu | LingEdu Dil</title>
         <meta
           name="description"
           content="IELTS hazırlık kursumuz şu anda dolu. Waitlist'e katılın, yer açıldığında size haber verelim. Profesyonel IELTS eğitimi için bekleme listesine eklenin."

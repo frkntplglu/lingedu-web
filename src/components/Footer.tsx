@@ -85,8 +85,8 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
               <li>+(90) 555 123 45 67</li>
-              <li>bilgi@ieltsmaster.com</li>
-              <li>Levent, İstanbul, TR</li>
+              <li>info@lingedudil.com</li>
+              <li>Merkez, Düzce, TR</li>
             </ul>
             <button className="mt-6 bg-primary/10 text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full text-sm font-semibold transition w-full md:w-auto">
               Mesaj Gönder

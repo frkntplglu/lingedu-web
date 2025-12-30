@@ -40,10 +40,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Ana Sayfa - IELTSMaster | IELTS Hazırlık ve İngilizce Eğitimleri</title>
+        <title>Ana Sayfa - LingEdu Dil | IELTS Hazırlık ve İngilizce Eğitimleri</title>
         <meta
           name="description"
-          content="IELTSMaster ile IELTS sınavına hazırlanın, Speaking Club'a katılın ve özel derslerle İngilizce seviyenizi yükseltin. Modern eğitim metodları ve uzman kadro."
+          content="LingEdu Dil ile IELTS sınavına hazırlanın, Speaking Club'a katılın ve özel derslerle İngilizce seviyenizi yükseltin. Modern eğitim metodları ve uzman kadro."
         />
       </Head>
       <Hero />

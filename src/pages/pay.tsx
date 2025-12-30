@@ -8,7 +8,7 @@ export default function Pay() {
   return (
     <>
       <Head>
-        <title>Ödeme - IELTSMaster | Ödemeyi Tamamla</title>
+        <title>Ödeme - LingEdu Dil | Ödemeyi Tamamla</title>
         <meta
           name="description"
           content="Eğitim kaydınızı kesinleştirmek için ödeme sayfası. Güvenli ödeme yöntemleri ile IELTS ve Speaking Club eğitimlerinize kayıt olun."

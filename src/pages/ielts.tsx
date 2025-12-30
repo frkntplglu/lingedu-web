@@ -36,7 +36,7 @@ export default function Ielts() {
   return (
     <>
       <Head>
-        <title>IELTS Hazırlık - IELTSMaster | Profesyonel IELTS Eğitimi</title>
+        <title>IELTS Hazırlık - LingEdu Dil | Profesyonel IELTS Eğitimi</title>
         <meta
           name="description"
           content="IELTS sınavına profesyonel hazırlık. Uzman eğitmenlerle IELTS eğitimi alın, hedeflediğiniz band skoruna ulaşın. Detaylı içerik ve pratik testler."

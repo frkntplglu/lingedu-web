@@ -181,7 +181,7 @@ const PaymentMethod = () => {
                     Hesap Adı:
                   </span>
                   <span className="font-semibold text-text-main-light dark:text-text-main-dark">
-                    IELTSMaster Eğitim Danışmanlık Ltd. Şti.
+                    LingEdu Dil Eğitim Danışmanlık Ltd. Şti.
                   </span>
                 </div>
               </div>
@@ -208,7 +208,7 @@ const PaymentMethod = () => {
                     Hesap Adı:
                   </span>
                   <span className="font-semibold text-text-main-light dark:text-text-main-dark">
-                    IELTSMaster Eğitim Danışmanlık Ltd. Şti.
+                    LingEdu Dil Eğitim Danışmanlık Ltd. Şti.
                   </span>
                 </div>
               </div>
@@ -219,8 +219,8 @@ const PaymentMethod = () => {
                 </span>
                 <span>
                   Havale/EFT işleminizden sonra dekontu{" "}
-                  <a href="mailto:info@ieltsmaster.com" className="text-primary hover:underline">
-                    info@ieltsmaster.com
+                  <a href="mailto:info@lingedudil.com" className="text-primary hover:underline">
+                    info@lingedudil.com
                   </a>{" "}
                   adresine göndermeniz gerekmektedir.
                 </span>

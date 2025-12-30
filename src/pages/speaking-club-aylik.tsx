@@ -35,7 +35,7 @@ export default function SpeakingClub() {
   return (
     <>
       <Head>
-        <title>Speaking Club - IELTSMaster | İngilizce Konuşma Pratiği</title>
+        <title>Speaking Club - LingEdu Dil | İngilizce Konuşma Pratiği</title>
         <meta
           name="description"
           content="Speaking Club ile İngilizce konuşma pratiği yapın. Grup dersleri, interaktif aktiviteler ve uzman eğitmenlerle akıcı İngilizce konuşmayı öğrenin."

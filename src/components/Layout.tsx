@@ -10,7 +10,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, title, description }: LayoutProps) => {
-  const defaultTitle = "IELTSMaster - IELTS Hazırlık ve İngilizce Eğitimleri";
+  const defaultTitle = "LingEdu Dil - IELTS Hazırlık ve İngilizce Eğitimleri";
   const defaultDescription =
     "Modern eğitim metodları ve uzman kadro ile dil öğrenim yolculuğunuzda yanınızdayız. IELTS hazırlık, Speaking Club ve özel dersler.";
 
