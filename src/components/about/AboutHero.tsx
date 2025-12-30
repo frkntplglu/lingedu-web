@@ -50,7 +50,7 @@ const AboutHero = () => {
               <img
                 alt="Selin Yılmaz"
                 className="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyWVq6mkaFGS5QDu4IvqMffOdd5rHT2Ao77c9RzjPui5EMzqJKaZvHHlpCS3vMnr3FetZxGRX3f6r5ja5oU0_Gvmvu0_HSsITakknAH7PJly1ac7Z5iUzHcxN0HVnA_h18vGejicSg6te9X95w71HRZepcEBeb36aGgbwjVmyQ7jDZsiP1LvsmDwaEvJ1vYguxbcG7D0WNHKpgo5exryVGRyHZX6jDOywHpxfIDFt4Prg9fC0z3kfnQoWGpFUgZLIpgn51M6En3fI"
+                src="/agc.jpeg"
               />
             </div>
             <div className="absolute -z-10 top-10 -right-10 w-full h-full border-2 border-primary/20 rounded-2xl"></div>

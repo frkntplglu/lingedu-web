@@ -14,22 +14,22 @@ const AboutMe = () => {
         </div>
         <div className="prose prose-lg dark:prose-invert mx-auto text-text-muted-light dark:text-text-muted-dark">
           <p className="pb-4">
-            Merhaba, ben Ayşe Gizem Çiftçi Topaloğlu. Yaklaşık 10 yıldır öğretim
+            Merhaba, ben <strong>Ayşe Gizem Çiftçi Topaloğlu</strong>. Yaklaşık <strong>10 yıldır</strong> öğretim
             görevlisi olarak çalışmakta ve İngilizce eğitimi alanında
             yetişkinlere özel ders ve grup dersleri vermekteyim. Lisans
-            eğitimimi 2017 yılında Anadolu Üniversitesi İngilizce Öğretmenliği
-            bölümünde, yüksek lisansımı ise 2021 yılında Kocaeli Üniversitesi
-            İngiliz Dili Eğitimi alanında tamamladım. Şu anda da Çanakkale
-            Onsekiz Mart Üniversitesinde aynı alanda doktora çalışmalarımı
+            eğitimimi 2017 yılında <strong>Anadolu Üniversitesi İngilizce Öğretmenliği</strong>
+            bölümünde, yüksek lisansımı ise 2021 yılında <strong>Kocaeli Üniversitesi
+            İngiliz Dili Eğitimi</strong> alanında tamamladım. Şu anda da <strong>Çanakkale
+            Onsekiz Mart Üniversitesinde</strong> aynı alanda doktora çalışmalarımı
             sürdürmekteyim.
           </p>
           <p className="pb-4">
-            2021 yılında kendi girişimim olan Speaking Club'ı kurdum ve o günden
+            <strong>2021</strong> yılında kendi girişimim olan <strong>Speaking Club'ı</strong> kurdum ve o günden
             beri binlerce öğrenciyle konuşma pratiği yaptık. Uzmanlığımı bir
             ileri noktaya taşımak adına dünyanın ileri gelen kurumlarından IELTS
             eğitmenliği eğitimleri aldım ve IELTS Grup Dersleri programımı
-            kurdum. Aktif olarak Speaking Club, IELTS Grup Dersleri ve IELTS
-            Özel Ders programlarını yürütmekteyim.
+            kurdum. Aktif olarak <strong>Speaking Club, IELTS Grup Dersleri ve IELTS
+            Özel Ders</strong> programlarını yürütmekteyim.
           </p>
           <p className="pb-4">
             <p className="text-lg mb-4 font-bold">Öğretmenlik Felsefem</p>

@@ -1,20 +1,45 @@
 import { supabase } from "@/lib/supabase/supabase";
 
+export interface FAQCategory {
+  id?: number;
+  name: string;
+  created_at?: string;
+}
 
 export interface FAQ {
   id?: number;
   question: string;
   answer: string;
+  category_id?: number;
+  faq_categories?: FAQCategory;
   created_at?: string;
 }
 
 const faqService = {
-  // Get all FAQs
+  // Get all FAQs with categories
   get: async (): Promise<FAQ[]> => {
     const { data, error } = await supabase
       .from('faqs')
-      .select('*')
+      .select(`
+        *,
+        faq_categories (
+          id,
+          name,
+          created_at
+        )
+      `)
       .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  },
+
+  // Get all FAQ categories
+  getCategories: async (): Promise<FAQCategory[]> => {
+    const { data, error } = await supabase
+      .from('faq_categories')
+      .select('*')
+      .order('id', { ascending: true });
 
     if (error) throw error;
     return data || [];

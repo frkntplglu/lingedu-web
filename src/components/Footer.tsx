@@ -95,12 +95,12 @@ const Footer = () => {
         </div>
         <div className="border-t border-gray-100 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400 text-center md:text-left">
-            © 2023 IELTSMaster. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} LingEdu Dil. Tüm hakları saklıdır.
           </p>
           <p className="text-sm text-gray-400 mt-2 md:mt-0 flex items-center">
             Powered by{" "}
             <span className="font-semibold text-gray-600 dark:text-gray-300 ml-1">
-              Tailwind CSS
+              Fitzpoint
             </span>
           </p>
         </div>

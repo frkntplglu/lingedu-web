@@ -11,7 +11,7 @@ const IeltsAchievement = () => {
               className="w-full h-[400px] object-cover rounded-3xl shadow-lg group-hover:shadow-xl transition duration-500"
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy1xCXqQR9DuWOl7UivSRC2l3wwUPs_WIUucqFLI7EWqlhveGq3Z6QQllqeHy850gIhqskek0NeNpgibgdJuJaOVWMbqnI7jCBnxcowXmJxT8m_6d7k936FMXKyIP0I75ImPIvP8d_dgxMg9P0q6z_xLsN_Pxnou2M7tRSerAOnqneipZzoTfVgBRjJEvhWzt-yx2nV2BHB0n56V4aP7vXmjhH6pVo5ukG9zrB34d4UUP-AePq0a7jHcqYHsDHF3C6qbGcwcmJV8I"
             />
-            <div className="absolute bottom-6 left-6 bg-white/90 dark:bg-black/80 backdrop-blur px-6 py-4 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
+            <div className="absolute bottom-10 left-6 bg-white/90 dark:bg-black/80 backdrop-blur px-6 py-4 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
               <div className="flex items-center gap-3">
                 <div className="bg-green-100 dark:bg-green-900 p-2 rounded-full">
                   <span className="material-icons-outlined text-green-600 dark:text-green-400">
