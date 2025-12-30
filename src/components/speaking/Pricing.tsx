@@ -1,6 +1,18 @@
 import React from "react";
+import { CourseWithVariants } from "@/services";
 
-const Pricing = () => {
+interface PricingProps {
+  course?: CourseWithVariants | null;
+  isLoading?: boolean;
+}
+
+const Pricing: React.FC<PricingProps> = ({ course, isLoading }) => {
+  const mainVariant = course?.course_variants?.[0];
+  const formattedPrice =
+    typeof mainVariant?.price === "number"
+      ? `₺${mainVariant.price.toLocaleString("tr-TR")}`
+      : "₺1.250";
+
   return (
     <section className="py-24 bg-surface-light dark:bg-surface-dark" id="pricing">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,36 +21,35 @@ const Pricing = () => {
             Yatırımın Kendine
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mt-2 mb-4">
-            Katılım Planı ve Program
+            {course?.title || "Katılım Planı ve Program"}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Hedefinize uygun gün ve saati seçerek hemen konuşmaya başlayın.
+            {course?.mini_desc ||
+              "Hedefinize uygun gün ve saati seçerek hemen konuşmaya başlayın."}
           </p>
         </div>
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-5 relative bg-white dark:bg-background-dark rounded-3xl p-8 border-2 border-primary shadow-xl flex flex-col h-full">
-            <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-2xl uppercase tracking-wide">
-              Her Şey Dahil
-            </div>
             <div className="mb-2">
-              <span className="px-3 py-1 bg-accent-light dark:bg-primary/20 text-primary rounded-full text-xs font-bold uppercase tracking-wide">
-                Premium Üyelik
+              <span className="px-3 py-1 bg-accent-light dark:bg-primary/20 text-primary rounded-full text-xs font-bold  tracking-wide">
+                Kontenjanlar sınırlıdır!
               </span>
             </div>
-            <h3 className="text-3xl font-bold mb-2 mt-4">Aylık Paket</h3>
+            <h3 className="text-3xl font-bold mb-2 mt-4">{course?.title}</h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm mb-8">
-              Düzenli pratik, uzman eğitmenler ve sınırsız materyal erişimi.
+              {course?.mini_desc}
             </p>
             <div className="flex items-baseline mb-8 pb-8 border-b border-gray-100 dark:border-gray-800">
               <span className="text-5xl font-extrabold text-gray-900 dark:text-white">
-                ₺1.250
+                {formattedPrice}
               </span>
               <span className="text-gray-500 dark:text-gray-400 ml-2 font-medium">
                 /ay
               </span>
             </div>
             <div className="space-y-5 flex-1">
-              <div className="flex items-start gap-4">
+              {course?.description}
+              {/* <div className="flex items-start gap-4">
                 <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg text-green-600 shrink-0">
                   <span className="material-icons-round text-xl">event_repeat</span>
                 </div>
@@ -94,14 +105,15 @@ const Pricing = () => {
                     Her ay sonu detaylı geri bildirim ve seviye analizi.
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="lg:col-span-7 bg-white dark:bg-background-dark rounded-3xl p-8 border border-gray-100 dark:border-gray-800 shadow-lg">
             <h3 className="text-2xl font-bold mb-6">Size Uygun Zamanı Seçin</h3>
             <form action="#" className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-4">
-                <label className="relative cursor-pointer group">
+                {course?.course_variants?.map(variant => {
+                  return <label className="relative cursor-pointer group">
                   <input
                     checked={false}
                     className="peer sr-only"
@@ -114,66 +126,13 @@ const Pricing = () => {
                         wb_twilight
                       </span>
                     </div>
-                    <h4 className="font-bold text-lg mb-1">Hafta İçi Akşam</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      İş/Okul sonrası için ideal.
-                    </p>
+                    <h4 className="font-bold text-lg mb-1">{variant.title}</h4>
                     <div className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300">
-                      Salı &amp; Perşembe 20:00
+                      {variant.description}
                     </div>
                   </div>
                 </label>
-                <label className="relative cursor-pointer group">
-                  <input className="peer sr-only" name="schedule" type="radio" />
-                  <div className="p-5 rounded-2xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full">
-                    <div className="flex justify-between items-start mb-3">
-                      <span className="material-icons-round text-gray-400 peer-checked:text-primary transition-colors text-2xl">
-                        wb_sunny
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-lg mb-1">Hafta Sonu Sabah</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      Güne enerjik başlayın.
-                    </p>
-                    <div className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300">
-                      Cmt &amp; Pazar 10:00
-                    </div>
-                  </div>
-                </label>
-                <label className="relative cursor-pointer group">
-                  <input className="peer sr-only" name="schedule" type="radio" />
-                  <div className="p-5 rounded-2xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full">
-                    <div className="flex justify-between items-start mb-3">
-                      <span className="material-icons-round text-gray-400 peer-checked:text-primary transition-colors text-2xl">
-                        weekend
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-lg mb-1">Hafta Sonu Öğle</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      Rahat bir öğleden sonra.
-                    </p>
-                    <div className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300">
-                      Cmt &amp; Pazar 14:00
-                    </div>
-                  </div>
-                </label>
-                <label className="relative cursor-pointer group">
-                  <input className="peer sr-only" name="schedule" type="radio" />
-                  <div className="p-5 rounded-2xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary peer-checked:border-primary peer-checked:bg-primary/5 transition-all h-full">
-                    <div className="flex justify-between items-start mb-3">
-                      <span className="material-icons-round text-gray-400 peer-checked:text-primary transition-colors text-2xl">
-                        nights_stay
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-lg mb-1">Hafta İçi Gece</h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      Geç saatleri sevenler için.
-                    </p>
-                    <div className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-lg text-xs font-semibold text-gray-700 dark:text-gray-300">
-                      Pzt &amp; Çarşamba 22:00
-                    </div>
-                  </div>
-                </label>
+                })}
               </div>
               <div className="grid md:grid-cols-2 gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
                 <div className="space-y-2">

@@ -2,13 +2,12 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { CourseWithVariants, courseService } from "@/services";
-import IeltsAchievement from "@/components/ielts/IeltsAchievement";
-import IeltsBuy from "@/components/ielts/IeltsBuy";
-import IeltsContent from "@/components/ielts/IeltsContent";
-import IeltsHero from "@/components/ielts/IeltsHero";
-import WhyIelts from "@/components/ielts/WhyIelts";
+import HowToWork from "@/components/speaking/HowToWork";
+import Pricing from "@/components/speaking/Pricing";
+import SpeakingHero from "@/components/speaking/SpeakingHero";
+import WhySpeakingClub from "@/components/speaking/WhySpeakingClub";
 
-export default function Ielts() {
+export default function SpeakingClub() {
   const router = useRouter();
   const [course, setCourse] = useState<CourseWithVariants | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,8 +16,8 @@ export default function Ielts() {
     const fetchCourse = async () => {
       try {
         setIsLoading(true);
-        // Use the pathname as slug (e.g., "ielts")
-        const slug = router.pathname.replace('/', '') || 'ielts';
+        // Use the pathname as slug (e.g., "speaking-club")
+        const slug = router.pathname.replace('/', '') || 'speaking-club';
         const courseData = await courseService.getBySlug(slug);
         setCourse(courseData);
       } catch (error) {
@@ -36,17 +35,16 @@ export default function Ielts() {
   return (
     <>
       <Head>
-        <title>IELTS Hazırlık - IELTSMaster | Profesyonel IELTS Eğitimi</title>
+        <title>Speaking Club - IELTSMaster | İngilizce Konuşma Pratiği</title>
         <meta
           name="description"
-          content="IELTS sınavına profesyonel hazırlık. Uzman eğitmenlerle IELTS eğitimi alın, hedeflediğiniz band skoruna ulaşın. Detaylı içerik ve pratik testler."
+          content="Speaking Club ile İngilizce konuşma pratiği yapın. Grup dersleri, interaktif aktiviteler ve uzman eğitmenlerle akıcı İngilizce konuşmayı öğrenin."
         />
       </Head>
-      <IeltsHero />
-      <IeltsAchievement />
-      <IeltsContent />
-      <WhyIelts />
-      <IeltsBuy course={course} isLoading={isLoading} />
+      <SpeakingHero />
+      <HowToWork />
+      <WhySpeakingClub />
+      <Pricing course={course} isLoading={isLoading} />
     </>
   );
 }
