@@ -10,7 +10,7 @@ const Hero = () => {
         <div className="absolute top-10 right-20 w-16 h-16 bg-pink-100 dark:bg-pink-900/30 rounded-full flex items-center justify-center transform rotate-12 animate-pulse hidden lg:flex">
           <span className="text-3xl">🗣️</span>
         </div>
-        <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
+        <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
           İngilizcenizi Geliştirin ve <br className="hidden lg:block" />
           <span className="text-gradient">Dünyaya Açılın</span>
         </h1>
@@ -21,14 +21,14 @@ const Hero = () => {
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <a
-            className="bg-primary hover:bg-primary-hover text-white px-8 py-4 rounded-full font-bold text-lg transition shadow-xl shadow-primary/40 flex items-center justify-center"
+            className="px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-all shadow-xl shadow-primary/30 flex items-center justify-center gap-2"
             href="#courses"
           >
             Eğitimleri İncele
             <span className="material-icons ml-2 text-sm">arrow_forward</span>
           </a>
           <a
-            className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary px-8 py-4 rounded-full font-bold text-lg transition flex items-center justify-center"
+            className="px-8 py-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white font-semibold rounded-full hover:bg-gray-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center"
             href="#contact"
           >
             Ücretsiz Danışmanlık

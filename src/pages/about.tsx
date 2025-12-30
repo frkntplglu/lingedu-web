@@ -17,7 +17,6 @@ export default function About() {
       <AboutHero />
       <AboutMe />
       <Certifications />
-      <Testimonials />
     </>
   );
 }

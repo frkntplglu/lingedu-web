@@ -13,18 +13,60 @@ const AboutMe = () => {
           </p>
         </div>
         <div className="prose prose-lg dark:prose-invert mx-auto text-text-muted-light dark:text-text-muted-dark">
-          <p>
-            Merhaba, ben Selin. İngilizce öğretme tutkum{" "}
-            <strong>Boğaziçi Üniversitesi İngiliz Dili ve Edebiyatı</strong>{" "}
-            bölümünde başladı. Mezuniyetimin ardından Londra'da uygulamalı
-            dilbilim üzerine yüksek lisans yaparak, dil edinimi konusundaki
-            teorik bilgilerimi pratik deneyimlerle harmanladım.
+          <p className="pb-4">
+            Merhaba, ben Ayşe Gizem Çiftçi Topaloğlu. Yaklaşık 10 yıldır öğretim
+            görevlisi olarak çalışmakta ve İngilizce eğitimi alanında
+            yetişkinlere özel ders ve grup dersleri vermekteyim. Lisans
+            eğitimimi 2017 yılında Anadolu Üniversitesi İngilizce Öğretmenliği
+            bölümünde, yüksek lisansımı ise 2021 yılında Kocaeli Üniversitesi
+            İngiliz Dili Eğitimi alanında tamamladım. Şu anda da Çanakkale
+            Onsekiz Mart Üniversitesinde aynı alanda doktora çalışmalarımı
+            sürdürmekteyim.
+          </p>
+          <p className="pb-4">
+            2021 yılında kendi girişimim olan Speaking Club'ı kurdum ve o günden
+            beri binlerce öğrenciyle konuşma pratiği yaptık. Uzmanlığımı bir
+            ileri noktaya taşımak adına dünyanın ileri gelen kurumlarından IELTS
+            eğitmenliği eğitimleri aldım ve IELTS Grup Dersleri programımı
+            kurdum. Aktif olarak Speaking Club, IELTS Grup Dersleri ve IELTS
+            Özel Ders programlarını yürütmekteyim.
+          </p>
+          <p className="pb-4">
+            <p className="text-lg mb-4 font-bold">Öğretmenlik Felsefem</p>
+            <strong>Uzmanlık:</strong> Akademik geçmişim ve süregelen doktora
+            çalışmalarım sayesinde, özellikle yetişkinlere İngilizce öğretme
+            alanında derinleşmiş bir bilgi birikimine sahibim.
+          </p>
+          <p className="pb-4">
+            <strong>Deneyim:</strong> Farklı seviye ve profildeki yetişkinlerle
+            uzun yıllar çalıştığım için karşılaşılabilecek zorlukları önceden
+            öngörebiliyor, buna uygun esnek ve etkili çözümler üretebiliyorum.
+          </p>
+          <p className="pb-4">
+            <strong>İletişim:</strong> Açık, şeffaf ve yargılayıcı olmayan bir
+            iletişim diliyle öğrencilerimle güvene dayalı bir bağ kurmayı
+            hedefliyorum. Sorulara her zaman yanıt vermeye ve endişeleri
+            dinlemeye hazırım.
+          </p>
+          <p className="pb-4">
+            <strong>Detaylara Dikkat:</strong> En küçük ayrıntıya bile önem
+            vererek yüksek kalitede eğitim sunmayı önceliğim haline getirdim.
+          </p>
+          <p className="pb-4">
+            <strong>Esneklik:</strong> Her öğrencinin öğrenme biçimi farklıdır.
+            Bu nedenle öğretim stilimi bireysel ihtiyaçlara göre
+            şekillendiriyorum.
+          </p>
+          <p className="pb-4">
+            <strong>Tutku:</strong> Öğretmenlik yalnızca bir meslek değil, benim
+            için bir tutku. Öğrencilerimin öğrenme yolculuklarında yanlarında
+            olmak, onlara ilham vermek ve İngilizceyi sevdirmek en büyük
+            motivasyonum.
           </p>
           <p>
-            Yıllarca süren <strong>IELTS Examiner</strong> (Sınav Yapıcı)
-            tecrübem, öğrencilerin en çok nerede zorlandığını ve sınavın aslında
-            neyi ölçtüğünü içeriden görmemi sağladı. Bu sayede, ezbere dayalı
-            değil, analitik ve stratejik bir eğitim modeli geliştirdim.
+            Kısacası, İngilizceye küsmüş ya da mesafe koymuş bireylerle dil
+            arasında yeniden köprü kurmayı hedefliyorum. Siz de bu yolculukta
+            bana katılmak isterseniz, doğru yerdesiniz.
           </p>
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">

@@ -1,4 +1,6 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { FAQ, Testimonial, faqService, testimonialService } from "@/services";
 import Advertising from "@/components/home/Advertising";
 import CourseCategories from "@/components/home/CourseCategories";
 import Faq from "@/components/home/Faq";
@@ -8,6 +10,30 @@ import StudentAchievements from "@/components/home/StudentAchievements";
 import Testimonials from "@/components/home/Testimonials";
 
 export default function Home() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const [testimonialsData, faqsData] = await Promise.all([
+          testimonialService.get(),
+          faqService.get(),
+        ]);
+        setTestimonials(testimonialsData);
+        setFaqs(faqsData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -21,8 +47,8 @@ export default function Home() {
       <CourseCategories />
       <StudentAchievements />
       <Advertising />
-      <Testimonials />
-      <Faq />
+      <Testimonials testimonials={testimonials} isLoading={isLoading} />
+      <Faq faqs={faqs} isLoading={isLoading} />
       <HomeCta />
     </>
   );
