@@ -5,7 +5,7 @@ const AboutHero = () => {
     <section className="relative pt-16 pb-20 lg:pt-24 lg:pb-28 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
+          <div className="animate-fade-in">
             <span className="inline-block py-1 px-3 rounded-full bg-purple-50 dark:bg-purple-900/30 text-primary text-xs font-bold tracking-wide uppercase mb-6">
               Profesyonel IELTS Eğitmeni
             </span>
@@ -45,7 +45,7 @@ const AboutHero = () => {
               </div>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl bg-gray-100 dark:bg-gray-800">
               <img
                 alt="Selin Yılmaz"

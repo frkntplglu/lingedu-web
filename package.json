@@ -3,20 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "ts-node --project tsconfig.server.json src/server.ts",
+    "dev:next": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "NODE_ENV=production ts-node --project tsconfig.server.json src/server.ts",
+    "start:next": "next start",
+    "lint": "eslint",
+    "db:init": "ts-node scripts/db-init.ts",
+    "db:sync": "ts-node scripts/db-init.ts --sync",
+    "db:seed": "ts-node scripts/db-init.ts --seed",
+    "db:reset": "ts-node scripts/db-init.ts --force --seed"
   },
   "dependencies": {
-    "@supabase-js/source": "github:supabase/supabase-js",
-    "@supabase/ssr": "^0.8.0",
-    "@supabase/supabase-js": "^2.47.10",
     "axios": "^1.13.2",
     "formik": "^2.4.9",
     "next": "16.1.1",
+    "pg": "^8.17.2",
+    "pg-hstore": "^2.3.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "sequelize": "^6.37.7",
     "yup": "^1.7.1"
   },
   "devDependencies": {
@@ -27,6 +33,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

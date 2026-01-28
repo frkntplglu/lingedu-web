@@ -80,16 +80,50 @@ const Hero = () => {
                 </span>
               </div>
             </div>
-            <div className="col-span-2 relative h-48 rounded-2xl overflow-hidden group">
-              <img
-                alt="Online learning session"
-                className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEj8dVSvk5OYayPlUpoWjnC-ys81OS7KlsJRbpzNN6Wab7WzYi1eOZuvGA-Q4PewWH0v6UdYZ0ooMLxOqWC8Mp1UpJEBWJarSd1qzYudi9raHRL-2UvH5pfo3-cMEiOuo9a7vltFYtKuk9gCtJs2uYVupTHWIt4FjSFqtbKxRlvS7-ko4aKujl2AzXzkzvIaOXA5OtrB6asbxjquIwIOfocO-qN2-x0u8PQ8mZCIPB4VpFA0c_r66i-W5TFAwbhB1exKOORsMYilQ"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                <div className="text-white">
-                  <h4 className="font-bold">Online Eğitim</h4>
-                  <p className="text-sm opacity-90">Her yerden erişim imkanı</p>
+            <div className="col-span-2 relative h-56 rounded-2xl overflow-hidden group bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-4 left-4 w-32 h-32 border border-white/30 rounded-full"></div>
+                <div className="absolute bottom-4 right-4 w-48 h-48 border border-white/20 rounded-full"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-white/10 rounded-full"></div>
+              </div>
+              
+              {/* Content */}
+              <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                {/* Top Row */}
+                <div className="flex items-start justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/20 rounded-full mb-3">
+                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                      <span className="text-xs font-medium text-primary">Canlı Dersler</span>
+                    </div>
+                    <h4 className="font-bold text-white text-xl">Online Eğitim</h4>
+                    <p className="text-sm text-gray-300 mt-1">Her yerden erişim imkanı</p>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
+                    <span className="material-icons text-primary text-lg">play_circle</span>
+                    <span className="text-white text-sm font-medium">50+ Video</span>
+                  </div>
+                </div>
+                
+                {/* Bottom Row - Features */}
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 transition hover:bg-white/20">
+                    <span className="material-icons text-teal-400 text-base">videocam</span>
+                    <span className="text-white text-sm">HD Video</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 transition hover:bg-white/20">
+                    <span className="material-icons text-amber-400 text-base">description</span>
+                    <span className="text-white text-sm">PDF Notlar</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 transition hover:bg-white/20">
+                    <span className="material-icons text-purple-400 text-base">quiz</span>
+                    <span className="text-white text-sm">Pratik Testler</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2 transition hover:bg-white/20">
+                    <span className="material-icons text-rose-400 text-base">support_agent</span>
+                    <span className="text-white text-sm">7/24 Destek</span>
+                  </div>
                 </div>
               </div>
             </div>

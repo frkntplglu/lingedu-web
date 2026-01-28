@@ -342,7 +342,7 @@ const ContactForm = () => {
                         className="ml-2 text-sm text-muted-light dark:text-muted-dark"
                         htmlFor="terms"
                       >
-                        <a className="text-primary hover:underline" href="#">
+                        <a className="text-primary hover:underline" href="/kvkk" target="_blank">
                           KVKK Aydınlatma Metni
                         </a>
                         'ni okudum ve kabul ediyorum.

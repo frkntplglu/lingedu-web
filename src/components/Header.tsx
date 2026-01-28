@@ -33,6 +33,9 @@ const Header = () => {
                         <Link href="/" className={getLinkClassName('/')}>
                             Ana Sayfa
                         </Link>
+                        <Link href="/products" className={getLinkClassName('/products')}>
+                            Ürünler
+                        </Link>
                         <Link href="/about" className={getLinkClassName('/about')}>
                             Hakkımızda
                         </Link>

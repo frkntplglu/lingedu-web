@@ -4,7 +4,7 @@ const AboutMe = () => {
   return (
     <section className="py-20 bg-surface-light dark:bg-surface-dark">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-3xl font-bold mb-4">
             Kimim ve <span className="text-primary">Nasıl Öğretiyorum?</span>
           </h2>
@@ -70,7 +70,7 @@ const AboutMe = () => {
           </p>
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex gap-4 items-start">
+          <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex gap-4 items-start hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '100ms' }}>
             <div className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-lg">
               <span className="material-icons">psychology</span>
             </div>
@@ -84,7 +84,7 @@ const AboutMe = () => {
               </p>
             </div>
           </div>
-          <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex gap-4 items-start">
+          <div className="bg-white dark:bg-background-dark p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex gap-4 items-start hover:shadow-lg hover:-translate-y-1 transition-all duration-300 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <div className="p-3 bg-green-50 dark:bg-green-900/20 text-green-600 rounded-lg">
               <span className="material-icons">record_voice_over</span>
             </div>
