@@ -1,52 +1,54 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Course, CourseWithVariants } from '@/services/courseService';
-import { mockCourses } from './index';
+import courseService from '@/services/courseService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
+import { validateRequest, courseSchema } from '@/lib/validation/schemas';
 
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<Course | CourseWithVariants | null>>
+  res: NextApiResponse
 ) {
   const { id } = req.query;
   const courseId = Array.isArray(id) ? id[0] : id;
-  
-  const courseIndex = mockCourses.findIndex(c => c.id === courseId);
-  
-  if (courseIndex === -1 && req.method !== 'POST') {
-    return res.status(404).json({ success: false, error: 'Course not found' });
+
+  if (!courseId) {
+    return errorResponses.badRequest(res, 'Invalid course ID');
   }
 
   switch (req.method) {
     case 'GET':
-      // Return course without variants
-      const { course_variants, ...courseData } = mockCourses[courseIndex];
-      return res.status(200).json({ success: true, data: courseData });
+      try {
+        const course = await courseService.getById(courseId);
+        return sendSuccess(res, course, 'Course retrieved successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'Course not found');
+      }
 
-    case 'PUT':
-      // Update course
-      const { title, slug, mini_desc, description } = req.body;
-      
-      mockCourses[courseIndex] = {
-        ...mockCourses[courseIndex],
-        ...(title && { title }),
-        ...(slug && { slug }),
-        ...(mini_desc && { mini_desc }),
-        ...(description && { description }),
-      };
-      
-      return res.status(200).json({ success: true, data: mockCourses[courseIndex] });
+    case 'PUT': {
+      const validatedData = await validateRequest(courseSchema.partial(), req.body);
+      try {
+        // Convert null to undefined for service compatibility
+        const sanitizedData = {
+          ...validatedData,
+          mini_desc: validatedData.mini_desc ?? undefined,
+          description: validatedData.description ?? undefined,
+        };
+        const updatedCourse = await courseService.put(courseId, sanitizedData);
+        return sendSuccess(res, updatedCourse, 'Course updated successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'Course not found');
+      }
+    }
 
     case 'DELETE':
-      mockCourses.splice(courseIndex, 1);
-      return res.status(200).json({ success: true, data: null });
+      try {
+        await courseService.delete(courseId);
+        return sendSuccess(res, null, 'Course deleted successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'Course not found');
+      }
 
     default:
       res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-      return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
+      return errorResponses.methodNotAllowed(res);
   }
-}
+});

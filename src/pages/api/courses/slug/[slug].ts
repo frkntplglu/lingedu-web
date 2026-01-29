@@ -1,30 +1,27 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { CourseWithVariants } from '@/services/courseService';
-import { mockCourses } from '../index';
+import courseService from '@/services/courseService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
 
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<CourseWithVariants>>
+  res: NextApiResponse
 ) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', ['GET']);
-    return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
+    return errorResponses.methodNotAllowed(res);
   }
 
   const { slug } = req.query;
   const courseSlug = Array.isArray(slug) ? slug[0] : slug;
-  
-  const course = mockCourses.find(c => c.slug === courseSlug);
-  
-  if (!course) {
-    return res.status(404).json({ success: false, error: 'Course not found' });
+
+  if (!courseSlug) {
+    return errorResponses.badRequest(res, 'Slug is required');
   }
 
-  return res.status(200).json({ success: true, data: course });
-}
+  try {
+    const course = await courseService.getBySlug(courseSlug);
+    return sendSuccess(res, course, 'Course retrieved successfully');
+  } catch (error) {
+    return errorResponses.notFound(res, 'Course not found');
+  }
+});

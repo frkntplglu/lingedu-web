@@ -90,7 +90,7 @@ export default (sequelize: Sequelize) => {
         { fields: ['is_active'] },
       ],
     }
-  ) as ReturnType<typeof sequelize.define> & {
+  ) as unknown as ReturnType<typeof sequelize.define> & {
     associate: (models: Record<string, ReturnType<typeof sequelize.define>>) => void;
   };
 

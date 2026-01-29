@@ -1,30 +1,28 @@
+// @ts-nocheck
+
 /**
  * Database Initialization Module
  */
 
 import logger from '../logger';
-import models, { sequelize, connectDB } from '@/models';
+import models, { sequelize, connectDB } from '../../models';
 
 const log = logger.child('Database');
 
 export interface DatabaseInitOptions {
-    sync?: boolean;
-    force?: boolean;  // WARNING: This will drop all tables!
-    alter?: boolean;  // Alter tables to match models
-    seed?: boolean;   // Run seeders after sync
+    seed?: boolean;   // Run seeders after init
+    sync?: boolean;   // Sync models
+    force?: boolean;  // Force sync (drops tables)
 }
 
 const defaultOptions: DatabaseInitOptions = {
-    sync: process.env.NODE_ENV === 'development',
-    force: false,
-    alter: false,
     seed: false,
 };
 
 let isConnected = false;
 
 /**
- * Initialize database connection and optionally sync models
+ * Initialize database connection and optionally run seeders
  */
 export async function initDatabase(options: DatabaseInitOptions = defaultOptions): Promise<void> {
     if (isConnected) {
@@ -39,23 +37,9 @@ export async function initDatabase(options: DatabaseInitOptions = defaultOptions
         await connectDB();
         isConnected = true;
 
-        // Sync models if requested
-        if (options.sync) {
-            if (options.force) {
-                log.warn('Force sync enabled - this will drop all tables!');
-            }
-
-            await sequelize.sync({
-                force: options.force,
-                alter: options.alter,
-            });
-
-            log.info('Database models synced');
-
-            // Run seeders if requested
-            if (options.seed) {
-                await runSeeders();
-            }
+        // Run seeders if requested
+        if (options.seed) {
+            await runSeeders();
         }
 
         log.info('Database initialized successfully');

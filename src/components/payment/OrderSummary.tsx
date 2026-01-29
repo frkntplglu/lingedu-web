@@ -1,9 +1,24 @@
 import React from "react";
+import { CourseVariant, CourseWithVariants } from "@/services";
 
-const OrderSummary = () => {
-  const subtotal = 2500;
-  const vat = 500;
-  const total = 3000;
+interface OrderSummaryProps {
+  course?: CourseWithVariants;
+  variant?: CourseVariant;
+  subtotal?: number;
+  vat?: number;
+  total?: number;
+}
+
+const OrderSummary = ({ course, variant, subtotal = 0, vat = 0, total = 0 }: OrderSummaryProps) => {
+  if (!course || !variant) {
+    return (
+      <div className="bg-card-light dark:bg-card-dark p-6 rounded-2xl shadow-soft border border-gray-100 dark:border-gray-800 h-fit">
+        <p className="text-center text-text-muted-light dark:text-text-muted-dark">
+          Loading order details...
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-card-light dark:bg-card-dark p-6 rounded-2xl shadow-soft border border-gray-100 dark:border-gray-800 h-fit">
@@ -20,12 +35,24 @@ const OrderSummary = () => {
         </div>
         <div className="flex-1">
           <h4 className="font-bold text-text-main-light dark:text-text-main-dark mb-1">
-            IELTS Hazırlık & Speaking Club
+            {course.title}
           </h4>
-          <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
-            10 Hafta • Online
+          <p className="text-sm font-semibold text-primary mb-1">
+            {variant.title}
           </p>
-          <p className="text-lg font-bold text-primary mt-2">₺{subtotal.toLocaleString("tr-TR", { minimumFractionDigits: 2 })}</p>
+          {variant.capacity && (
+            <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
+              {variant.capacity} kişilik sınıf
+            </p>
+          )}
+          {variant.start_date && (
+            <p className="text-sm text-text-muted-light dark:text-text-muted-dark">
+              Başlangıç: {new Date(variant.start_date).toLocaleDateString('tr-TR')}
+            </p>
+          )}
+          <p className="text-lg font-bold text-primary mt-2">
+            ₺{subtotal.toLocaleString("tr-TR", { minimumFractionDigits: 2 })}
+          </p>
         </div>
       </div>
 

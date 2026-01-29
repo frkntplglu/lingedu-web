@@ -31,22 +31,16 @@ const Header = () => {
                     </div>
                     <div className="hidden md:flex space-x-8 items-center">
                         <Link href="/" className={getLinkClassName('/')}>
-                            Ana Sayfa
-                        </Link>
-                        <Link href="/products" className={getLinkClassName('/products')}>
-                            Ürünler
+                            Anasayfa
                         </Link>
                         <Link href="/about" className={getLinkClassName('/about')}>
                             Hakkımızda
                         </Link>
-                        <Link href="/speaking-club-aylik" className={getLinkClassName('/speaking-club-aylik')}>
-                            Speaking Club
+                        <Link href="/products" className={getLinkClassName('/products')}>
+                            Eğitimlerimiz
                         </Link>
-                        <Link href="/ielts" className={getLinkClassName('/ielts')}>
-                            IELTS
-                        </Link>
-                        <Link 
-                            href="/contact" 
+                        <Link
+                            href="/contact"
                             className={`bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full font-semibold transition shadow-lg shadow-primary/30 ${isActive('/contact') ? 'ring-2 ring-primary ring-offset-2' : ''}`}
                         >
                             Bize Ulaşın

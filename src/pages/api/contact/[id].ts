@@ -1,35 +1,37 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { mockContactForms, type ContactForm } from './index';
+import contactFormService from '@/services/contactFormService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
 
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<ContactForm | null>>
+  res: NextApiResponse
 ) {
   const { id } = req.query;
   const contactId = Number(Array.isArray(id) ? id[0] : id);
-  
-  const contactIndex = mockContactForms.findIndex(c => c.id === contactId);
-  
-  if (contactIndex === -1) {
-    return res.status(404).json({ success: false, error: 'Contact form not found' });
+
+  if (isNaN(contactId)) {
+    return errorResponses.badRequest(res, 'Invalid contact form ID');
   }
 
   switch (req.method) {
     case 'GET':
-      return res.status(200).json({ success: true, data: mockContactForms[contactIndex] });
+      try {
+        const form = await contactFormService.getById(contactId);
+        return sendSuccess(res, form, 'Contact form retrieved successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'Contact form not found');
+      }
 
     case 'DELETE':
-      mockContactForms.splice(contactIndex, 1);
-      return res.status(200).json({ success: true, data: null });
+      try {
+        await contactFormService.delete(contactId);
+        return sendSuccess(res, null, 'Contact form deleted successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'Contact form not found');
+      }
 
     default:
       res.setHeader('Allow', ['GET', 'DELETE']);
-      return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
+      return errorResponses.methodNotAllowed(res);
   }
-}
+});

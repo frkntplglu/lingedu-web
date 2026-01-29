@@ -38,12 +38,7 @@ const Footer = () => {
               <ul className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
                 <li>
                   <Link className="hover:text-primary transition" href="/">
-                    Ana Sayfa
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-primary transition" href="/products">
-                    Ürünler
+                    Anasayfa
                   </Link>
                 </li>
                 <li>
@@ -52,8 +47,13 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link className="hover:text-primary transition" href="/products">
+                    Eğitimlerimiz
+                  </Link>
+                </li>
+                <li>
                   <Link className="hover:text-primary transition" href="/contact">
-                    İletişim
+                    Bize Ulaşın
                   </Link>
                 </li>
               </ul>
@@ -82,7 +82,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link className="hover:text-primary transition" href="/products">
-                    Tüm Ürünler
+                    Tüm Eğitimler
                   </Link>
                 </li>
               </ul>

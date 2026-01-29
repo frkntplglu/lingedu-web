@@ -1,51 +1,54 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { mockFaqs, mockCategories, type FAQ } from './index';
+import faqService from '@/services/faqService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
+import { validateRequest, faqSchema } from '@/lib/validation/schemas';
 
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<FAQ | null>>
+  res: NextApiResponse
 ) {
   const { id } = req.query;
   const faqId = Number(Array.isArray(id) ? id[0] : id);
-  
-  const faqIndex = mockFaqs.findIndex(f => f.id === faqId);
-  
-  if (faqIndex === -1) {
-    return res.status(404).json({ success: false, error: 'FAQ not found' });
+
+  if (isNaN(faqId)) {
+    return errorResponses.badRequest(res, 'Invalid FAQ ID');
   }
 
   switch (req.method) {
     case 'GET':
-      return res.status(200).json({ success: true, data: mockFaqs[faqIndex] });
+      try {
+        const faq = await faqService.getById(faqId);
+        return sendSuccess(res, faq, 'FAQ retrieved successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'FAQ not found');
+      }
 
-    case 'PUT':
-      // Update FAQ
-      const { question, answer, category_id } = req.body;
-      
-      const category = category_id ? mockCategories.find(c => c.id === category_id) : mockFaqs[faqIndex].faq_categories;
-      
-      mockFaqs[faqIndex] = {
-        ...mockFaqs[faqIndex],
-        ...(question && { question }),
-        ...(answer && { answer }),
-        ...(category_id && { category_id }),
-        faq_categories: category,
-      };
-      
-      return res.status(200).json({ success: true, data: mockFaqs[faqIndex] });
+    case 'PUT': {
+      const validatedData = await validateRequest(faqSchema.partial(), req.body);
+      try {
+        // Convert null to undefined for service compatibility
+        const sanitizedData = {
+          ...validatedData,
+          answer: validatedData.answer ?? undefined,
+          category_id: validatedData.category_id ?? undefined,
+        };
+        const updatedFaq = await faqService.put(faqId, sanitizedData);
+        return sendSuccess(res, updatedFaq, 'FAQ updated successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'FAQ not found');
+      }
+    }
 
     case 'DELETE':
-      mockFaqs.splice(faqIndex, 1);
-      return res.status(200).json({ success: true, data: null });
+      try {
+        await faqService.delete(faqId);
+        return sendSuccess(res, null, 'FAQ deleted successfully');
+      } catch (error) {
+        return errorResponses.notFound(res, 'FAQ not found');
+      }
 
     default:
       res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-      return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
+      return errorResponses.methodNotAllowed(res);
   }
-}
+});

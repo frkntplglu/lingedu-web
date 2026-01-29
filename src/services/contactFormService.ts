@@ -1,50 +1,121 @@
+import models from '../models';
+import type { ContactFormStatus } from '../models/ContactForm';
+import { toJSON } from '../lib/serialize';
+
+const { ContactForm } = models;
+
 export interface ContactForm {
   id?: number;
   fullname: string;
   email: string;
-  subject: string;
+  phone?: string;
+  subject?: string;
   message: string;
-  terms_accepted: boolean;
+  terms_accepted?: boolean;
+  status?: ContactFormStatus;
+  ip_address?: string;
+  user_agent?: string;
   created_at?: string;
 }
 
 export interface InsertContactForm {
   fullname: string;
   email: string;
-  subject: string;
+  phone?: string;
+  subject?: string;
   message: string;
 }
 
-// Mock storage for contact form submissions
-const mockContactForms: ContactForm[] = [];
-
-// Simulate async delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
+/**
+ * Contact Form Service - Database backed implementation
+ */
 const contactFormService = {
-  // Create new contact form submission (mock - logs to console and stores in memory)
-  post: async (data: InsertContactForm): Promise<ContactForm> => {
-    await delay(500);
-    
-    const newContactForm: ContactForm = {
+  /**
+   * Create new contact form submission
+   */
+  post: async (data: InsertContactForm, metadata?: { ip_address?: string; user_agent?: string }): Promise<ContactForm> => {
+    const contactForm = await ContactForm.create({
       ...data,
-      id: mockContactForms.length + 1,
       terms_accepted: true,
-      created_at: new Date().toISOString(),
-    };
-    
-    mockContactForms.push(newContactForm);
-    
-    // Log the submission for development purposes
-    console.log('Contact form submitted:', newContactForm);
-    
-    return newContactForm;
+      status: 'pending',
+      ...metadata,
+    } as any);
+
+    return toJSON(contactForm.toJSON() as unknown as ContactForm);
   },
 
-  // Get all contact forms (for admin purposes - mock)
+  /**
+   * Get all contact forms (for admin)
+   */
   get: async (): Promise<ContactForm[]> => {
-    await delay(300);
-    return mockContactForms;
+    const contactForms = await ContactForm.findAll({
+      order: [['created_at', 'DESC']],
+    });
+    return contactForms.map((c) => toJSON(c.toJSON() as unknown as ContactForm));
+  },
+
+  /**
+   * Get single contact form by ID
+   */
+  getById: async (id: number): Promise<ContactForm> => {
+    const contactForm = await ContactForm.findByPk(id);
+    if (!contactForm) {
+      throw new Error('Contact form submission not found');
+    }
+    return toJSON(contactForm.toJSON() as unknown as ContactForm);
+  },
+
+  /**
+   * Update contact form status
+   */
+  updateStatus: async (id: number, status: ContactFormStatus): Promise<ContactForm> => {
+    const contactForm = await ContactForm.findByPk(id);
+    if (!contactForm) {
+      throw new Error('Contact form submission not found');
+    }
+    await contactForm.update({ status } as any);
+    return toJSON(contactForm.toJSON() as unknown as ContactForm);
+  },
+
+  /**
+   * Delete contact form submission
+   */
+  delete: async (id: number): Promise<void> => {
+    const contactForm = await ContactForm.findByPk(id);
+    if (!contactForm) {
+      throw new Error('Contact form submission not found');
+    }
+    await contactForm.destroy();
+  },
+
+  /**
+   * Get contact forms by status
+   */
+  getByStatus: async (status: ContactFormStatus): Promise<ContactForm[]> => {
+    const contactForms = await ContactForm.findAll({
+      where: { status },
+      order: [['created_at', 'DESC']],
+    });
+    return contactForms.map((c) => toJSON(c.toJSON() as unknown as ContactForm));
+  },
+
+  /**
+   * Get contact forms statistics
+   */
+  getStats: async (): Promise<{
+    total: number;
+    pending: number;
+    read: number;
+    replied: number;
+    archived: number;
+  }> => {
+    const total = await ContactForm.count();
+    const pending = await ContactForm.count({ where: { status: 'pending' } });
+    const read = await ContactForm.count({ where: { status: 'read' } });
+    const replied = await ContactForm.count({ where: { status: 'replied' } });
+    const archived = await ContactForm.count({ where: { status: 'archived' } });
+
+    return { total, pending, read, replied, archived };
   },
 };
 

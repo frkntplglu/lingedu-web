@@ -29,6 +29,68 @@ select {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Dashboard/shadcn UI theme variables */
+  --card: 0 0% 100%;
+  --card-foreground: 220 13% 13%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 13% 13%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 220 13% 13%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 220 14% 96%;
+  --accent-foreground: 220 13% 13%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 217 91% 60%;
+  --radius: 0.5rem;
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 220 9% 46%;
+  --sidebar-primary: 217 91% 60%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 220 14% 96%;
+  --sidebar-accent-foreground: 220 13% 13%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217 91% 60%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+
+    /* Dashboard/shadcn UI dark mode */
+    --card: 220 13% 13%;
+    --card-foreground: 220 14% 96%;
+    --popover: 220 13% 13%;
+    --popover-foreground: 220 14% 96%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 220 14% 96%;
+    --muted: 220 13% 18%;
+    --muted-foreground: 220 9% 56%;
+    --accent: 220 13% 18%;
+    --accent-foreground: 220 14% 96%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 20%;
+    --input: 220 13% 20%;
+    --ring: 217 91% 60%;
+    --sidebar-background: 220 13% 10%;
+    --sidebar-foreground: 220 9% 56%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 13% 18%;
+    --sidebar-accent-foreground: 220 14% 96%;
+    --sidebar-border: 220 13% 20%;
+    --sidebar-ring: 217 91% 60%;
+  }
 }
 
 @theme {
@@ -65,10 +127,10 @@ select {
   --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   
   /* Fonts */
-  --font-display: "Manrope", sans-serif;
-  --font-body: "Manrope", sans-serif;
-  --font-sans: "Manrope", sans-serif;
-  --font-mono: "Manrope", monospace;
+  --font-display: "Nunito", sans-serif;
+  --font-body: "Nunito", sans-serif;
+  --font-sans: "Nunito", sans-serif;
+  --font-mono: "Nunito", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -80,7 +142,7 @@ select {
 
 html,
 body {
-  font-family: "Manrope", sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 body {

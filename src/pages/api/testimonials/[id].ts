@@ -1,49 +1,43 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { mockTestimonials, type Testimonial } from './index';
+import testimonialService from '@/services/testimonialService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
+import { validateRequest, testimonialSchema } from '@/lib/validation/schemas';
 
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<Testimonial | null>>
+  res: NextApiResponse
 ) {
   const { id } = req.query;
   const testimonialId = Number(Array.isArray(id) ? id[0] : id);
-  
-  const testimonialIndex = mockTestimonials.findIndex(t => t.id === testimonialId);
-  
-  if (testimonialIndex === -1) {
-    return res.status(404).json({ success: false, error: 'Testimonial not found' });
+
+  if (isNaN(testimonialId)) {
+    return errorResponses.badRequest(res, 'Invalid testimonial ID');
   }
 
   switch (req.method) {
     case 'GET':
-      return res.status(200).json({ success: true, data: mockTestimonials[testimonialIndex] });
+      const testimonial = await testimonialService.getById(testimonialId);
+      return sendSuccess(res, testimonial, 'Testimonial retrieved successfully');
 
-    case 'PUT':
-      // Update testimonial
-      const { client_fullname, client_job, comment, is_active } = req.body;
-      
-      mockTestimonials[testimonialIndex] = {
-        ...mockTestimonials[testimonialIndex],
-        ...(client_fullname && { client_fullname }),
-        ...(client_job && { client_job }),
-        ...(comment && { comment }),
-        ...(is_active !== undefined && { is_active }),
+    case 'PUT': {
+      const validatedData = await validateRequest(testimonialSchema.partial(), req.body);
+      // Convert null to undefined for service compatibility
+      const sanitizedData = {
+        ...validatedData,
+        comment: validatedData.comment ?? undefined,
+        client_job: validatedData.client_job ?? undefined,
+        rating: validatedData.rating ?? undefined,
       };
-      
-      return res.status(200).json({ success: true, data: mockTestimonials[testimonialIndex] });
+      const updatedTestimonial = await testimonialService.put(testimonialId, sanitizedData);
+      return sendSuccess(res, updatedTestimonial, 'Testimonial updated successfully');
+    }
 
     case 'DELETE':
-      mockTestimonials.splice(testimonialIndex, 1);
-      return res.status(200).json({ success: true, data: null });
+      await testimonialService.delete(testimonialId);
+      return sendSuccess(res, null, 'Testimonial deleted successfully');
 
     default:
       res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-      return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
+      return errorResponses.methodNotAllowed(res);
   }
-}
+});

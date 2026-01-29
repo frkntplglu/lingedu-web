@@ -226,5 +226,6 @@ class Logger {
 // Default logger instance
 const logger = new Logger();
 
-export { Logger, logger, LogLevel, LoggerConfig };
+export { Logger, logger };
+export type { LogLevel, LoggerConfig };
 export default logger;

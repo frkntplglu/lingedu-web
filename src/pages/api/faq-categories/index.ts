@@ -1,20 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { mockCategories, type FAQCategory } from '../faqs/index';
+import faqService from '@/services/faqService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
+import { validateRequest, faqCategorySchema } from '@/lib/validation/schemas';
 
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<FAQCategory[]>>
+  res: NextApiResponse
 ) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
-  }
+  switch (req.method) {
+    case 'GET':
+      const categories = await faqService.getCategories(false);
+      return sendSuccess(res, categories, 'FAQ categories retrieved successfully');
 
-  return res.status(200).json({ success: true, data: mockCategories });
-}
+    case 'POST': {
+      const validatedData = await validateRequest(faqCategorySchema, req.body);
+      // Convert null to undefined for service compatibility
+      const sanitizedData = {
+        ...validatedData,
+        slug: validatedData.slug ?? undefined,
+      };
+      const newCategory = await faqService.createCategory(sanitizedData);
+      return sendSuccess(res, newCategory, 'FAQ category created successfully', 201);
+    }
+
+    default:
+      res.setHeader('Allow', ['GET', 'POST']);
+      return errorResponses.methodNotAllowed(res);
+  }
+});

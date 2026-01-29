@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import next from 'next';
 import { createServer } from 'http';
 import { parse } from 'url';

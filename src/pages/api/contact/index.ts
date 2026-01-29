@@ -1,68 +1,42 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import contactFormService from '@/services/contactFormService';
+import { sendSuccess, errorResponses, asyncHandler } from '@/lib/apiResponse';
+import { validateRequest, contactFormSchema } from '@/lib/validation/schemas';
 
-export interface ContactForm {
-  id?: number;
-  fullname: string;
-  email: string;
-  subject: string;
-  message: string;
-  terms_accepted: boolean;
-  created_at?: string;
-}
-
-// Mock storage for contact form submissions
-const mockContactForms: ContactForm[] = [];
-
-export { mockContactForms };
-
-type ApiResponse<T> = {
-  success: boolean;
-  data?: T;
-  error?: string;
-};
-
-export default function handler(
+export default asyncHandler(async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<ContactForm[] | ContactForm>>
+  res: NextApiResponse
 ) {
   switch (req.method) {
     case 'GET':
-      // Return all contact form submissions (for admin)
-      return res.status(200).json({ success: true, data: mockContactForms });
+      // Get all contact form submissions (admin only)
+      const forms = await contactFormService.get();
+      return sendSuccess(res, forms, 'Contact forms retrieved successfully');
 
-    case 'POST':
+    case 'POST': {
       // Submit new contact form
-      const { fullname, email, subject, message } = req.body;
-      
-      if (!fullname || !email || !message) {
-        return res.status(400).json({ success: false, error: 'Fullname, email, and message are required' });
-      }
+      const validatedData = await validateRequest(contactFormSchema, req.body);
 
-      // Basic email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        return res.status(400).json({ success: false, error: 'Invalid email format' });
-      }
-
-      const newContactForm: ContactForm = {
-        id: mockContactForms.length + 1,
-        fullname,
-        email,
-        subject: subject || 'Genel',
-        message,
-        terms_accepted: true,
-        created_at: new Date().toISOString(),
+      // Convert null to undefined for service compatibility
+      const sanitizedData = {
+        ...validatedData,
+        phone: validatedData.phone ?? undefined,
+        subject: validatedData.subject ?? undefined,
       };
-      
-      mockContactForms.push(newContactForm);
-      
-      // Log the submission
-      console.log('New contact form submission:', newContactForm);
-      
-      return res.status(201).json({ success: true, data: newContactForm });
+
+      // Extract metadata from request
+      const metadata = {
+        ip_address: (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() ||
+                     req.socket.remoteAddress,
+        user_agent: req.headers['user-agent'],
+      };
+
+      const newForm = await contactFormService.post(sanitizedData, metadata);
+      return sendSuccess(res, newForm, 'Contact form submitted successfully', 201);
+    }
 
     default:
       res.setHeader('Allow', ['GET', 'POST']);
-      return res.status(405).json({ success: false, error: `Method ${req.method} Not Allowed` });
+      return errorResponses.methodNotAllowed(res);
   }
-}
+});

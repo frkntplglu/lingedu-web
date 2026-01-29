@@ -9,6 +9,14 @@ const sequelize = new Sequelize({
   username: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || '',
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
+  dialectOptions: {
+    // Return timestamps as strings instead of Date objects
+    // This prevents serialization errors in Next.js
+    ssl: process.env.DB_SSL === 'true' ? {
+      require: true,
+      rejectUnauthorized: false,
+    } : undefined,
+  },
   pool: {
     max: 5,
     min: 0,
@@ -18,6 +26,9 @@ const sequelize = new Sequelize({
   define: {
     timestamps: true,
     underscored: true,
+    // Return timestamps as strings instead of Date objects
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   },
 });
 

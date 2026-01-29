@@ -20,13 +20,14 @@ export interface CourseModel extends Model<InferAttributes<CourseModel>, InferCr
   slug: string;
   mini_desc: CreationOptional<string | null>;
   description: CreationOptional<string | null>;
+  image_url: CreationOptional<string | null>;
   is_active: CreationOptional<boolean>;
   created_at: CreationOptional<Date>;
   updated_at: CreationOptional<Date>;
 
   // Associations
   course_variants?: NonAttribute<CourseVariantModel[]>;
-  
+
   // Association methods
   getVariants: HasManyGetAssociationsMixin<CourseVariantModel>;
   addVariant: HasManyAddAssociationMixin<CourseVariantModel, string>;
@@ -66,6 +67,10 @@ export default (sequelize: Sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
+      image_url: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+      },
       is_active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
@@ -89,7 +94,7 @@ export default (sequelize: Sequelize) => {
         { fields: ['is_active'] },
       ],
     }
-  ) as ReturnType<typeof sequelize.define> & {
+  ) as unknown as ReturnType<typeof sequelize.define> & {
     associate: (models: Record<string, ReturnType<typeof sequelize.define>>) => void;
   };
 

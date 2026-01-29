@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { CourseVariant } from "@/services";
 
@@ -9,21 +9,26 @@ interface ProductVariantsProps {
 
 const ProductVariantsSkeleton = () => (
   <div className="max-w-4xl mx-auto">
-    <div className="flex gap-4 mb-8 justify-center">
-      {[1, 2, 3].map((i) => (
-        <div key={i} className="h-12 w-32 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
+    <div className="space-y-4">
+      {[1, 2].map((i) => (
+        <div key={i} className="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-100 dark:border-gray-700 animate-pulse">
+          <div className="flex justify-between gap-8">
+            <div className="flex-1 space-y-3">
+              <div className="h-7 bg-gray-100 dark:bg-gray-700 rounded w-40"></div>
+              <div className="h-5 bg-gray-100 dark:bg-gray-700 rounded w-56"></div>
+              <div className="space-y-2 pt-4">
+                <div className="h-4 bg-gray-100 dark:bg-gray-700 rounded w-full"></div>
+                <div className="h-4 bg-gray-100 dark:bg-gray-700 rounded w-11/12"></div>
+                <div className="h-4 bg-gray-100 dark:bg-gray-700 rounded w-10/12"></div>
+              </div>
+            </div>
+            <div className="w-48 flex-shrink-0">
+              <div className="h-10 bg-gray-100 dark:bg-gray-700 rounded w-32 mb-3"></div>
+              <div className="h-11 bg-gray-100 dark:bg-gray-700 rounded-xl w-full"></div>
+            </div>
+          </div>
+        </div>
       ))}
-    </div>
-    <div className="bg-gray-100 dark:bg-gray-800 rounded-[2rem] p-8 animate-pulse">
-      <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/2 mb-4"></div>
-      <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-3/4 mb-8"></div>
-      <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg w-1/3 mb-8"></div>
-      <div className="space-y-3 mb-8">
-        {[1, 2, 3, 4].map((j) => (
-          <div key={j} className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-full"></div>
-        ))}
-      </div>
-      <div className="h-14 bg-gray-200 dark:bg-gray-700 rounded-xl w-full"></div>
     </div>
   </div>
 );
@@ -39,10 +44,7 @@ const formatDate = (date?: string) =>
   }) : undefined;
 
 const ProductVariants: React.FC<ProductVariantsProps> = ({ variants = [], isLoading }) => {
-  // Find the featured variant or default to first one
-  const defaultVariant = variants.find(v => v.is_featured) || variants[0];
-  const [selectedVariant, setSelectedVariant] = useState<CourseVariant | null>(defaultVariant || null);
-
+  console.log("my variant : ", variants)
   if (isLoading) {
     return (
       <section className="py-24 bg-surface-light dark:bg-surface-dark relative" id="pricing">
@@ -100,123 +102,74 @@ const ProductVariants: React.FC<ProductVariantsProps> = ({ variants = [], isLoad
           </p>
         </div>
 
-        {/* Variant Selector Tabs */}
-        <div className="flex flex-wrap gap-3 justify-center mb-12">
+        {/* Variant Cards */}
+        <div className="max-w-lg mx-auto space-y-4">
           {variants.map((variant) => (
-            <button
+            <div
               key={variant.id}
-              onClick={() => setSelectedVariant(variant)}
-              className={`relative px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                selectedVariant?.id === variant.id
-                  ? "bg-primary text-white shadow-lg shadow-primary/30"
-                  : "bg-white dark:bg-card-dark text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary hover:text-primary"
-              }`}
+              className={`bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700 transition-all duration-200 hover:border-primary dark:hover:border-primary hover:shadow-md`}
             >
-              {variant.is_featured && (
-                <span className="absolute -top-2 -right-2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  Popüler
-                </span>
-              )}
-              {variant.title}
-            </button>
-          ))}
-        </div>
-
-        {/* Selected Variant Details */}
-        {selectedVariant && (
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white dark:bg-card-dark rounded-[2rem] p-8 md:p-12 border border-gray-100 dark:border-gray-700 shadow-xl relative overflow-hidden">
-              {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-              
-              <div className="relative z-10">
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+              <div className="flex gap-6">
+                {/* Left: Content */}
+                <div className="flex-1 space-y-4">
+                  {/* Title & Subtitle */}
                   <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                        {selectedVariant.title}
+                    <div className="flex items-center gap-2.5 mb-1.5">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        {variant.title}
                       </h3>
-                      {selectedVariant.is_featured && (
-                        <span className="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 text-xs font-bold px-3 py-1 rounded-full">
-                          En Popüler
+                      {variant.is_featured && (
+                        <span className="text-xs font-medium bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 px-2 py-0.5 rounded-full">
+                          Popüler
                         </span>
                       )}
                     </div>
-                    {selectedVariant.mini_desc && (
-                      <p className="text-text-muted-light dark:text-text-muted-dark text-lg">
-                        {selectedVariant.mini_desc}
+                    {variant.mini_desc && (
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {variant.mini_desc}
                       </p>
                     )}
                   </div>
-                  
-                  <div className="text-right">
-                    <div className="text-4xl md:text-5xl font-bold text-primary">
-                      {formatPrice(selectedVariant.price)}
-                    </div>
-                    {selectedVariant.capacity && (
-                      <span className="text-text-muted-light dark:text-text-muted-dark text-sm">
-                        {selectedVariant.capacity} kişilik
-                      </span>
-                    )}
-                  </div>
+
+                  {/* Features List */}
+                  {variant.description && (
+                    <div className="text-sm text-gray-700 dark:text-gray-300 prose prose-sm dark:prose-invert max-w-none
+                      prose-ul:m-0 prose-ul:space-y-2 prose-li:flex prose-li:items-start prose-li:gap-2
+                      [&_ul]:list-none [&_ul]:pl-0"
+                      dangerouslySetInnerHTML={{
+                        __html: variant.description.replace(/<li>/g, '<li class="flex items-start gap-2"><span class="text-primary mt-0.5">✓</span><span>')
+                      }}
+                    />
+                  )}
                 </div>
 
-                {/* Start Date */}
-                {selectedVariant.start_date && (
-                  <div className="flex items-center gap-2 mb-6 text-sm">
-                    <span className="material-icons text-primary text-xl">event</span>
-                    <span className="text-gray-600 dark:text-gray-400">
-                      Başlangıç: <strong className="text-gray-900 dark:text-white">{formatDate(selectedVariant.start_date)}</strong>
-                    </span>
-                  </div>
-                )}
-
-                {/* Description / Features */}
-                {selectedVariant.description && (
-                  <div className="mb-8 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-2xl">
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                      <span className="material-icons text-primary">checklist</span>
-                      Paket İçeriği
-                    </h4>
-                    <div 
-                      className="text-gray-600 dark:text-gray-400 prose prose-sm dark:prose-invert max-w-none 
-                        prose-ul:space-y-2 prose-li:flex prose-li:items-start prose-li:gap-2
-                        [&_ul]:list-none [&_ul]:pl-0 [&_li]:before:content-['✓'] [&_li]:before:text-primary [&_li]:before:font-bold"
-                      dangerouslySetInnerHTML={{ __html: selectedVariant.description }}
-                    />
-                  </div>
-                )}
-
-                {/* CTA Button */}
-                <Link
-                  href="/contact"
-                  className="w-full py-4 rounded-xl bg-primary text-white font-bold hover:bg-primary-hover transition duration-300 text-center block shadow-lg shadow-primary/30 text-lg flex items-center justify-center gap-2"
-                >
-                  <span className="material-icons">shopping_cart</span>
-                  Hemen Kayıt Ol
-                </Link>
-
-                {/* Additional Info */}
-                <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
-                  <div className="flex items-center gap-2">
-                    <span className="material-icons text-green-500 text-base">verified</span>
-                    Sertifika dahil
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="material-icons text-green-500 text-base">support_agent</span>
-                    7/24 destek
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="material-icons text-green-500 text-base">replay</span>
-                    7 gün iade garantisi
+                {/* Right: CTA & Price */}
+                <div className="flex-shrink-0 flex flex-col items-end justify-between">
+                  <Link
+                    href={`/pay/${variant.id}`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white text-sm font-medium hover:bg-primary-hover transition-colors duration-200 whitespace-nowrap"
+                  >
+                    Kayıt Ol
+                  </Link>
+                  <div className="text-right mt-2">
+                    {variant.price ? (
+                      <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                        {formatPrice(+variant.price)}
+                      </p>
+                    ) : (
+                      <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Fiyat için iletişime geçin
+                      </p>
+                    )}
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      {variant.start_date ? formatDate(variant.start_date) : 'İletişime geçin'}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          ))}
+        </div>
 
         {/* Contact CTA */}
         <div className="mt-12 text-center">

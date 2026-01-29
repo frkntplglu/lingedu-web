@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: lingedu-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: lingedu
+      POSTGRES_USER: lingedu
+      POSTGRES_PASSWORD: lingedu123
+    volumes:
+      - lingedu:/var/lib/postgresql/data
+
+volumes:
+  lingedu:
+    name: lingedu
